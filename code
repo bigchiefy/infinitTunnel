@@ -1,0 +1,24 @@
+//PImage img;
+
+void setup() {
+  size(1080,720);
+  colorMode(HSB);
+//img = loadImage ("coke1.jpg");
+background(0);
+}
+
+float c;
+
+void draw(){
+  if (mousePressed){
+    if (c >= 255)  c=0;  
+    
+    else  c++;
+  stroke(c, 255, 255);
+  noFill();
+  strokeWeight(3);
+
+  //ellipse(mouseX,mouseY,500,500);
+  //image (img, mouseX, mouseY, 80, 100);
+}
+}

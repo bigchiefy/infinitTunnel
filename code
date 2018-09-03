@@ -1,24 +1,52 @@
-//PImage img;
+ArrayList ellipses;
 
-void setup() {
+void setup() { 
   size(1080,720);
-  colorMode(HSB);
-//img = loadImage ("coke1.jpg");
-background(0);
-}
-
-float c;
-
-void draw(){
-  if (mousePressed){
-    if (c >= 255)  c=0;  
+  background(0); 
+  noFill(); 
+  stroke(255);
+  ellipses = new ArrayList();
+} 
+ 
+void draw()
+{
+  background(0);
+    for ( int i = 0; i<ellipses.size(); i++ )
+    {
+    ((Ellipse)ellipses.get(i)).draw(); 
+    }
+    ellipses.add( new Ellipse( mouseX, mouseY,millis(),5,0,50 ) );
+} 
+ 
+class Ellipse
+{
+    int x,y;
+    int clickedTime;
+    int maxSize;
+    int startSize;
+    int intervalSize;
+    int fColour;
     
-    else  c++;
-  stroke(c, 255, 255);
-  noFill();
-  strokeWeight(3);
-
-  //ellipse(mouseX,mouseY,500,500);
-  //image (img, mouseX, mouseY, 80, 100);
-}
+    Ellipse (int _x, int _y, int _clickedTime, int _maxSize, int _startSize, int _intervalSize)
+    {
+    x = _x; y = _y;
+    clickedTime = _clickedTime;
+    maxSize = _maxSize;
+    startSize = _startSize;
+    intervalSize = _intervalSize;
+    fColour = color( random(255), random(255), random(255) );
+    }
+    
+    void draw()
+    {
+    if(millis() < clickedTime + 1) return;
+    
+      noFill();
+      strokeWeight(3);
+      strokeCap(ROUND);
+      stroke(fColour);
+     ellipse(x, y, startSize + intervalSize * 10, startSize + intervalSize * 10); 
+     startSize += intervalSize;
+     clickedTime = millis();
+    }
 }
